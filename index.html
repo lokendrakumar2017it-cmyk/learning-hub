@@ -1,255 +1,534 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Tuition Academy | Nursery to 5th</title>
-  <!-- Tailwind CSS & FontAwesome -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BrightMinds Home Academy | Nursery to Grade 5</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts: Inter / Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
   <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
     html { scroll-behavior: smooth; }
+
+    /* Animated gradient */
+    .animated-mesh {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #db2777 100%);
+      background-size: 200% 200%;
+      animation: gradientShift 10s ease infinite;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Floating badge animation */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .floating-card {
+      animation: floatSlow 4s ease-in-out infinite;
+    }
   </style>
 </head>
-<body class="bg-amber-50/40 text-slate-800 font-sans antialiased min-h-screen">
+<body class="bg-slate-50 text-slate-900 antialiased min-h-screen">
 
-  <!-- ==================== 1. LOGIN / SIGNUP SCREEN ==================== -->
-  <section id="auth-screen" class="min-h-screen flex items-center justify-center p-4">
-    <div class="bg-white p-8 rounded-3xl border border-amber-100 shadow-xl max-w-md w-full">
-      <div class="text-center mb-6">
-        <span class="text-4xl">🎒</span>
-        <h2 class="text-2xl font-black text-amber-600 mt-2">Home Tuition Portal</h2>
-        <p class="text-xs text-gray-500 mt-1">ट्यूशन की जानकारी और डेमो क्लास के लिए लॉगिन करें</p>
-      </div>
-
-      <div class="space-y-4">
-        <div>
-          <label class="text-xs font-bold text-gray-600 block mb-1">ईमेल आईडी</label>
-          <input type="email" id="email" placeholder="example@gmail.com" class="w-full border border-gray-300 p-3 rounded-xl text-sm outline-none focus:ring-2 focus:ring-amber-500" />
-        </div>
+  <!-- ========================================== -->
+  <!-- 1. DYNAMIC SPLIT-SCREEN AUTH PORTAL        -->
+  <!-- ========================================== -->
+  <section id="auth-screen" class="min-h-screen flex items-center justify-center p-4 sm:p-8 bg-slate-950">
+    <div class="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900 min-h-[620px]">
+      
+      <!-- LEFT PROMO PANEL -->
+      <div class="lg:col-span-5 animated-mesh p-8 sm:p-12 flex flex-col justify-between text-white relative overflow-hidden">
+        <!-- Glow Circle -->
+        <div class="absolute -bottom-16 -left-16 w-56 h-56 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
 
         <div>
-          <label class="text-xs font-bold text-gray-600 block mb-1">पासवर्ड</label>
-          <input type="password" id="password" placeholder="कम से कम 4 अक्षर" class="w-full border border-gray-300 p-3 rounded-xl text-sm outline-none focus:ring-2 focus:ring-amber-500" />
+          <div class="flex items-center space-x-3 mb-8">
+            <div class="w-11 h-11 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center text-xl shadow-inner">
+              🎓
+            </div>
+            <div>
+              <h2 class="font-extrabold text-xl tracking-tight leading-none">BrightMinds</h2>
+              <p class="text-xs text-indigo-100 font-medium tracking-wide">Home Academy</p>
+            </div>
+          </div>
+
+          <span class="inline-block bg-white/20 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase mb-4 text-amber-200">
+            Admissions Open 2026
+          </span>
+          <h1 class="text-3xl sm:text-4xl font-black leading-tight">
+            Nurturing Young Minds With Personal Care.
+          </h1>
+          <p class="mt-4 text-sm text-indigo-100/90 leading-relaxed font-normal">
+            Specialized home tuition for Nursery to Grade 5 at Jalalpur, Khair Road, Aligarh. Strong foundation in English, Mathematics, and Hindi.
+          </p>
         </div>
 
-        <p id="auth-error" class="text-xs text-red-500 text-center font-medium"></p>
-
-        <div class="flex gap-3 pt-2">
-          <button onclick="handleLogin()" class="flex-1 bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-xl text-sm shadow-md transition">
-            लॉगिन करें
-          </button>
-          <button onclick="handleSignup()" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-sm shadow-md transition">
-            साइन अप करें
-          </button>
+        <!-- Floating Badge -->
+        <div class="floating-card bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl mt-8">
+          <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 bg-emerald-400/20 text-emerald-300 rounded-xl flex items-center justify-center text-sm font-bold">
+              ✓
+            </div>
+            <div>
+              <p class="text-xs font-bold">Small Batches Only</p>
+              <p class="text-[11px] text-white/75">Max 5-6 children per batch for 1-on-1 attention</p>
+            </div>
+          </div>
         </div>
       </div>
+
+      <!-- RIGHT FORM PANEL -->
+      <div class="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-center bg-slate-900 text-white">
+        <div class="max-w-md mx-auto w-full">
+          
+          <!-- Mode Tabs -->
+          <div class="flex p-1 bg-slate-800/80 rounded-2xl border border-slate-700/60 mb-8">
+            <button id="tab-login" onclick="switchAuthTab('login')" class="flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition-all duration-200 bg-indigo-600 text-white shadow-md">
+              Sign In
+            </button>
+            <button id="tab-signup" onclick="switchAuthTab('signup')" class="flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition-all duration-200 text-slate-400 hover:text-white">
+              Create Account
+            </button>
+          </div>
+
+          <!-- Heading Area -->
+          <div class="mb-6">
+            <h3 id="auth-title" class="text-2xl font-bold text-white tracking-tight">Welcome Back!</h3>
+            <p id="auth-sub" class="text-xs text-slate-400 mt-1">Please enter your credentials to view tuition batches and details.</p>
+          </div>
+
+          <!-- Alert Box -->
+          <div id="auth-alert" class="hidden text-xs py-2.5 px-3.5 rounded-xl mb-4 font-medium"></div>
+
+          <!-- Interactive Inputs -->
+          <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
+            
+            <!-- Full Name (Only on Signup) -->
+            <div id="field-name" class="hidden">
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Parent / Student Name</label>
+              <div class="relative">
+                <i class="fas fa-user absolute left-4 top-3.5 text-slate-500 text-xs"></i>
+                <input type="text" id="auth-name" placeholder="Rahul Sharma" class="w-full bg-slate-800/60 border border-slate-700/80 rounded-xl py-3 pl-11 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" />
+              </div>
+            </div>
+
+            <!-- Email Address -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Email Address</label>
+              <div class="relative">
+                <i class="fas fa-envelope absolute left-4 top-3.5 text-slate-500 text-xs"></i>
+                <input type="email" id="auth-email" required placeholder="parent@gmail.com" class="w-full bg-slate-800/60 border border-slate-700/80 rounded-xl py-3 pl-11 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" />
+              </div>
+            </div>
+
+            <!-- Password with Toggle -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Password</label>
+              <div class="relative">
+                <i class="fas fa-lock absolute left-4 top-3.5 text-slate-500 text-xs"></i>
+                <input type="password" id="auth-password" required placeholder="••••••••" class="w-full bg-slate-800/60 border border-slate-700/80 rounded-xl py-3 pl-11 pr-11 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" />
+                <button type="button" onclick="togglePasswordVisibility()" class="absolute right-4 top-3 text-slate-500 hover:text-slate-300 text-xs">
+                  <i id="password-toggle-icon" class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Grade Selection (Only on Signup) -->
+            <div id="field-grade" class="hidden">
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Student's Current Grade</label>
+              <select id="auth-grade" class="w-full bg-slate-800/60 border border-slate-700/80 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                <option value="Nursery / KG">Nursery / KG</option>
+                <option value="Grade 1">Grade 1</option>
+                <option value="Grade 2">Grade 2</option>
+                <option value="Grade 3">Grade 3</option>
+                <option value="Grade 4">Grade 4</option>
+                <option value="Grade 5">Grade 5</option>
+              </select>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="btn-submit" class="w-full py-3.5 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 font-bold rounded-xl text-sm text-white shadow-lg shadow-indigo-500/25 transition duration-200 mt-2">
+              Sign In to Continue
+            </button>
+          </form>
+
+          <!-- Footer Switch -->
+          <div class="mt-6 text-center text-xs text-slate-400">
+            <span id="footer-text">Don't have an account yet?</span>
+            <button onclick="toggleAuthMode()" id="footer-btn" class="font-bold text-indigo-400 hover:text-indigo-300 ml-1">
+              Sign up now
+            </button>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- ==================== 2. MAIN TUITION WEBSITE ==================== -->
+  <!-- ========================================== -->
+  <!-- 2. MAIN TUITION SHOWCASE WEBSITE           -->
+  <!-- ========================================== -->
   <div id="website-screen" class="hidden">
     
-    <!-- NAVBAR -->
-    <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-amber-100">
-      <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-        <div class="flex items-center space-x-2">
-          <span class="text-2xl sm:text-3xl">🌟</span>
+    <!-- Top Navigation Bar -->
+    <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200/80 shadow-sm">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex justify-between items-center">
+        
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center text-lg font-bold border border-indigo-100">
+            🌟
+          </div>
           <div>
-            <h1 class="text-base sm:text-lg font-black text-amber-600 leading-none">Home Tuition Academy</h1>
-            <p class="text-[10px] sm:text-xs text-gray-500 font-medium">Class: Nursery to 5th</p>
+            <h1 class="text-base font-extrabold text-slate-900 leading-none">BrightMinds Academy</h1>
+            <p class="text-[11px] text-slate-500 font-medium">Jalalpur, Khair Road, Aligarh</p>
           </div>
         </div>
-        
-        <div class="flex items-center gap-3">
-          <span id="user-display" class="hidden sm:inline text-xs text-gray-500 font-semibold bg-gray-100 px-3 py-1.5 rounded-full"></span>
-          
-          <button onclick="handleLogout()" class="bg-rose-50 text-rose-600 border border-rose-200 hover:bg-rose-100 text-xs font-bold px-3 py-1.5 rounded-lg transition">
-            लॉगआउट
-          </button>
-          
-          <!-- यहाँ अपना फोन नंबर डालें -->
-          <a href="tel:+919876543210" class="bg-amber-500 hover:bg-amber-600 text-white text-xs sm:text-sm font-bold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow transition flex items-center gap-1.5">
-            <i class="fas fa-phone-alt text-xs"></i> 
-            <span>कॉल करें</span>
+
+        <div class="flex items-center space-x-3">
+          <!-- Active User Badge -->
+          <div class="hidden sm:flex items-center space-x-2 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-full text-xs font-medium text-slate-700">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span id="nav-user-email">Parent</span>
+          </div>
+
+          <!-- Direct Call Button with Your Phone Number -->
+          <a href="tel:+917088244393" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-bold px-4 py-2 rounded-xl shadow-sm transition flex items-center space-x-2">
+            <i class="fas fa-phone-alt text-xs"></i>
+            <span>Call: 7088244393</span>
           </a>
+
+          <!-- Logout Button -->
+          <button onclick="handleLogout()" title="Log out" class="w-9 h-9 rounded-xl border border-slate-200 text-slate-600 hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 transition flex items-center justify-center">
+            <i class="fas fa-arrow-right-from-bracket text-xs"></i>
+          </button>
         </div>
+
       </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <header class="max-w-5xl mx-auto px-4 pt-10 pb-14 text-center">
-      <span class="inline-block bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1.5 rounded-full mb-3">
-        🎉 नए बैच शुरू हो रहे हैं | सीमित सीटें
-      </span>
-      <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 leading-tight mb-4">
-        छोटे बच्चों के लिए <br class="hidden sm:block">
-        <span class="text-amber-600 underline decoration-amber-300">प्यार और व्यक्तिगत ध्यान</span> के साथ ट्यूशन
-      </h2>
-      <p class="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto mb-8">
-        Nursery से 5th क्लास के बच्चों के लिए सभी विषयों की संपूर्ण तैयारी। बच्चों की बेसिक नींव मजबूत करने और होमवर्क सपोर्ट पर विशेष ध्यान।
+    <!-- Hero Section -->
+    <header class="max-w-5xl mx-auto px-4 sm:px-6 pt-12 pb-16 text-center">
+      <div class="inline-flex items-center space-x-2 bg-indigo-50 border border-indigo-200/60 px-4 py-1.5 rounded-full mb-6 text-indigo-700 text-xs font-bold">
+        <span>📍 Mandir Wali Gali, Jalalpur, Khair Road, Aligarh</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight leading-[1.15]">
+        Building Confident Learners <br class="hidden sm:inline" />
+        With <span class="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Patient & Personalized</span> Care.
+      </h1>
+
+      <p class="mt-6 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        Comprehensive academic support for Nursery to Grade 5. Focusing on conceptual clarity, school homework completion, daily reading habit, and neat handwriting improvement.
       </p>
 
-      <div class="flex flex-col sm:flex-row justify-center gap-3 max-w-md mx-auto">
-        <!-- यहाँ अपना WhatsApp नंबर डालें -->
-        <a href="https://wa.me/919876543210?text=नमस्ते,%20मुझे%20ट्यूशन%20के%20बारे%20में%20जानकारी%20चाहिए।" target="_blank" class="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition">
-          <i class="fab fa-whatsapp text-lg"></i> WhatsApp पर बात करें
+      <div class="mt-8 flex flex-col sm:flex-row justify-center gap-3.5 max-w-md mx-auto">
+        <!-- Direct WhatsApp CTA with Your Number -->
+        <a href="https://wa.me/917088244393?text=Hello%20Teacher,%20I%20would%20like%20to%20inquire%20about%20a%20free%20trial%20class%20for%20my%20child." target="_blank" class="flex items-center justify-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3.5 rounded-xl shadow-md transition">
+          <i class="fab fa-whatsapp text-lg"></i>
+          <span>Chat on WhatsApp</span>
         </a>
-        <a href="#about" class="flex items-center justify-center gap-2 bg-white hover:bg-amber-50 text-slate-800 font-bold px-6 py-3 rounded-xl border border-slate-200 shadow-sm transition">
-          शिक्षिका के बारे में जानें
+        <a href="#location" class="flex items-center justify-center space-x-2 bg-white hover:bg-slate-50 text-slate-800 font-bold px-6 py-3.5 rounded-xl border border-slate-200 shadow-sm transition">
+          <i class="fas fa-location-dot text-indigo-600 text-sm"></i>
+          <span>View Address</span>
         </a>
       </div>
     </header>
 
-    <!-- KEY FEATURES -->
-    <section class="max-w-5xl mx-auto px-4 py-6">
+    <!-- Key Pillars Section -->
+    <section class="max-w-5xl mx-auto px-4 sm:px-6 py-8">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div class="bg-white p-6 rounded-2xl border border-amber-100 shadow-sm">
-          <div class="w-10 h-10 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-lg mb-3">
-            <i class="fas fa-users"></i>
+        
+        <div class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm hover:border-indigo-200 transition">
+          <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center text-xl mb-5">
+            <i class="fas fa-users-line"></i>
           </div>
-          <h3 class="text-base font-bold text-slate-800 mb-1">सीमित बच्चे (Small Batches)</h3>
-          <p class="text-xs text-slate-600 leading-relaxed">हर बच्चे की पढ़ाई और कमज़ोरियों पर अलग से ध्यान दिया जाता है।</p>
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl border border-amber-100 shadow-sm">
-          <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-lg mb-3">
-            <i class="fas fa-book-reader"></i>
-          </div>
-          <h3 class="text-base font-bold text-slate-800 mb-1">बेसिक कॉन्सेप्ट्स और रीडिंग</h3>
-          <p class="text-xs text-slate-600 leading-relaxed">अंग्रेजी रीडिंग, हिंदी और मैथ्स की बेसिक समझ को मजबूत बनाना।</p>
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl border border-amber-100 shadow-sm">
-          <div class="w-10 h-10 bg-rose-100 text-rose-600 rounded-lg flex items-center justify-center text-lg mb-3">
-            <i class="fas fa-clipboard-check"></i>
-          </div>
-          <h3 class="text-base font-bold text-slate-800 mb-1">वीकली टेस्ट और रिपोर्ट</h3>
-          <p class="text-xs text-slate-600 leading-relaxed">हर हफ्ते टेस्ट और माता-पिता के साथ नियमित फीडबैक शेयरिंग।</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT SECTION -->
-    <section id="about" class="max-w-4xl mx-auto px-4 py-8">
-      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm flex flex-col sm:flex-row items-center gap-6">
-        <div class="w-28 h-28 bg-amber-100 rounded-full flex items-center justify-center text-4xl flex-shrink-0">
-          👩‍🏫
-        </div>
-        <div class="space-y-2 text-center sm:text-left">
-          <span class="bg-purple-100 text-purple-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full">शिक्षिका का परिचय</span>
-          <h3 class="text-xl font-bold text-slate-900">घर जैसा शांत और सुरक्षित माहौल</h3>
-          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
-            नमस्ते! छोटे बच्चों को बिना किसी दबाव और डर के, प्यार और धैर्य से पढ़ाना हमारा उद्देश्य है। स्कूल के होमवर्क में पूरी मदद के साथ बच्चों की हैंडराइटिंग सुधारने पर भी विशेष ज़ोर दिया जाता है।
+          <h3 class="font-bold text-slate-900 text-lg mb-2">Micro-Batches</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Strictly limited to 5-6 children per batch, ensuring every child receives prompt assistance whenever they get stuck.
           </p>
         </div>
+
+        <div class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm hover:border-indigo-200 transition">
+          <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-xl mb-5">
+            <i class="fas fa-shapes"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 text-lg mb-2">Foundation Mastery</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Strong emphasis on English phonics, mental math techniques, Hindi matras, and handwriting without blind rote-memorization.
+          </p>
+        </div>
+
+        <div class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm hover:border-indigo-200 transition">
+          <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl mb-5">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 text-lg mb-2">Weekly Assessments</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Routine weekend mini-tests followed by direct progress updates to parents so you always know where your child stands.
+          </p>
+        </div>
+
       </div>
     </section>
 
-    <!-- CLASSES & CONTACT BANNER -->
-    <section class="max-w-3xl mx-auto px-4 py-10">
-      <div class="bg-gradient-to-r from-amber-500 to-orange-500 rounded-3xl p-6 sm:p-8 text-white text-center shadow-lg">
-        <h3 class="text-xl sm:text-2xl font-bold mb-2">फ्री 2-दिन की डेमो क्लास बुक करें</h3>
-        <p class="text-amber-100 text-xs sm:text-sm mb-5">
-          📍 <strong>लोकेशन:</strong> [यहाँ अपनी कॉलोनी या क्षेत्र का नाम लिखें] <br>
-          ⏰ <strong>समय:</strong> शाम 4:00 से 7:00 बजे
+    <!-- About The Teacher -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+      <div class="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/80 shadow-sm flex flex-col md:flex-row items-center gap-8">
+        
+        <div class="w-32 h-32 sm:w-40 sm:h-40 bg-gradient-to-tr from-indigo-100 to-purple-100 text-indigo-600 rounded-full flex items-center justify-center text-5xl flex-shrink-0 shadow-inner">
+          👩‍🏫
+        </div>
+
+        <div class="space-y-3 text-center md:text-left">
+          <span class="inline-block bg-purple-50 text-purple-700 text-xs font-bold px-3 py-1 rounded-full border border-purple-100">
+            About The Educator
+          </span>
+          <h2 class="text-2xl font-extrabold text-slate-900">
+            A Safe, Encouraging & Home-Like Atmosphere
+          </h2>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            "Every young child learns at their own unique pace. My approach is built on gentle patience, positive reinforcement, and helping children overcome their fear of math and reading. We ensure school assignments are completely done while reinforcing daily concepts."
+          </p>
+          <div class="pt-2 flex flex-wrap gap-2 justify-center md:justify-start">
+            <span class="bg-slate-100 text-slate-700 text-xs font-semibold px-3 py-1 rounded-lg">Patience-First Methodology</span>
+            <span class="bg-slate-100 text-slate-700 text-xs font-semibold px-3 py-1 rounded-lg">Daily Homework Support</span>
+            <span class="bg-slate-100 text-slate-700 text-xs font-semibold px-3 py-1 rounded-lg">Handwriting Improvement</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Offered Grades -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 py-6">
+      <h3 class="text-xl font-extrabold text-center text-slate-900 mb-6">Offered Grades & Curriculum</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 text-center">
+          <p class="font-extrabold text-indigo-600 text-base">Nursery - KG</p>
+          <p class="text-xs text-slate-500 mt-1">Phonics, Motor Skills & Numbers</p>
+        </div>
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 text-center">
+          <p class="font-extrabold text-indigo-600 text-base">Grade 1 & 2</p>
+          <p class="text-xs text-slate-500 mt-1">English, Hindi, Math & EVS</p>
+        </div>
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 text-center">
+          <p class="font-extrabold text-indigo-600 text-base">Grade 3 & 4</p>
+          <p class="text-xs text-slate-500 mt-1">Maths Concepts, Grammar & Science</p>
+        </div>
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 text-center">
+          <p class="font-extrabold text-indigo-600 text-base">Grade 5</p>
+          <p class="text-xs text-slate-500 mt-1">Exam Readiness & Conceptual Clarity</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Address & Direct Contact Banner -->
+    <section id="location" class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+      <div class="bg-slate-950 rounded-3xl p-8 sm:p-10 text-white text-center shadow-xl border border-slate-800 relative overflow-hidden">
+        <h3 class="text-2xl sm:text-3xl font-black mb-3">Book A Free 2-Day Trial Session</h3>
+        <p class="text-slate-400 text-sm mb-6 max-w-md mx-auto">
+          Visit our home tuition setup in Aligarh and experience the teaching atmosphere firsthand before enrolling.
         </p>
-        <div class="flex justify-center gap-3">
-          <a href="tel:+919876543210" class="bg-white text-slate-900 font-bold px-5 py-2 rounded-full text-xs shadow hover:bg-slate-100 transition">
-            📞 तुरंत कॉल करें
+
+        <!-- Pre-filled Address Card -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 mb-8 max-w-lg mx-auto text-left space-y-3">
+          <div class="flex items-start space-x-3">
+            <i class="fas fa-location-dot text-indigo-400 text-base mt-1"></i>
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Tuition Address</p>
+              <p class="text-sm font-semibold text-white mt-0.5">Mandir Wali Gali, Jalalpur, Khair Road, Aligarh</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3 pt-2 border-t border-slate-800">
+            <i class="fas fa-phone text-emerald-400 text-sm mt-1"></i>
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Phone / WhatsApp</p>
+              <p class="text-sm font-semibold text-white mt-0.5">+91 7088244393</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3 pt-2 border-t border-slate-800">
+            <i class="fas fa-clock text-amber-400 text-sm mt-1"></i>
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Batches Timing</p>
+              <p class="text-sm font-semibold text-white mt-0.5">4:00 PM – 7:00 PM (Monday to Saturday)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="tel:+917088244393" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-xl text-xs sm:text-sm shadow transition flex items-center space-x-2">
+            <i class="fas fa-phone-alt"></i>
+            <span>Call 7088244393</span>
           </a>
-          <a href="https://wa.me/919876543210?text=नमस्ते,%20डेमो%20क्लास%20की%20जानकारी%20चाहिए।" target="_blank" class="bg-emerald-800 text-white font-bold px-5 py-2 rounded-full text-xs shadow hover:bg-emerald-900 transition">
-            💬 WhatsApp मैसेज
+          <a href="https://wa.me/917088244393?text=Hello%20Teacher,%20I%20am%20interested%20in%20a%20free%20trial%20class%20at%20Jalalpur,%20Aligarh." target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-3 rounded-xl text-xs sm:text-sm shadow transition flex items-center space-x-2">
+            <i class="fab fa-whatsapp text-base"></i>
+            <span>WhatsApp Now</span>
           </a>
         </div>
       </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="text-center py-6 text-xs text-slate-400 border-t border-slate-200">
-      <p>© 2026 Home Tuition Academy. All rights reserved.</p>
+    <!-- Footer -->
+    <footer class="text-center py-8 text-xs text-slate-400 border-t border-slate-200">
+      <p>© 2026 BrightMinds Home Academy. Mandir Wali Gali, Jalalpur, Khair Road, Aligarh.</p>
     </footer>
 
   </div>
 
-  <!-- JAVASCRIPT AUTH LOGIC (NO FIREBASE REQUIRED) -->
+  <!-- ========================================== -->
+  <!-- 3. CLIENT AUTH ENGINE (Zero-Cost LocalStorage) -->
+  <!-- ========================================== -->
   <script>
-    const authScreen = document.getElementById("auth-screen");
-    const websiteScreen = document.getElementById("website-screen");
-    const userDisplay = document.getElementById("user-display");
-    const authError = document.getElementById("auth-error");
+    let currentMode = 'login';
 
-    // पहले से लॉग्ड-इन यूजर चेक करें
-    window.onload = function() {
-      const activeUser = localStorage.getItem("active_tuition_user");
+    window.addEventListener('DOMContentLoaded', () => {
+      const activeUser = localStorage.getItem('bm_active_session');
       if (activeUser) {
-        showWebsite(activeUser);
+        showApp(activeUser);
       }
-    };
+    });
 
-    function showWebsite(email) {
-      authScreen.classList.add("hidden");
-      websiteScreen.classList.remove("hidden");
-      userDisplay.innerText = email;
+    function switchAuthTab(mode) {
+      currentMode = mode;
+      const tabLogin = document.getElementById('tab-login');
+      const tabSignup = document.getElementById('tab-signup');
+      const fieldName = document.getElementById('field-name');
+      const fieldGrade = document.getElementById('field-grade');
+      const authTitle = document.getElementById('auth-title');
+      const authSub = document.getElementById('auth-sub');
+      const btnSubmit = document.getElementById('btn-submit');
+      const footerText = document.getElementById('footer-text');
+      const footerBtn = document.getElementById('footer-btn');
+      clearAlert();
+
+      if (mode === 'signup') {
+        tabSignup.className = "flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition-all duration-200 bg-indigo-600 text-white shadow-md";
+        tabLogin.className = "flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition-all duration-200 text-slate-400 hover:text-white";
+        fieldName.classList.remove('hidden');
+        fieldGrade.classList.remove('hidden');
+        authTitle.innerText = "Create Free Account";
+        authSub.innerText = "Register to view batch schedules and book free trial classes.";
+        btnSubmit.innerText = "Register & Continue";
+        footerText.innerText = "Already registered?";
+        footerBtn.innerText = "Sign in here";
+      } else {
+        tabLogin.className = "flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition-all duration-200 bg-indigo-600 text-white shadow-md";
+        tabSignup.className = "flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition-all duration-200 text-slate-400 hover:text-white";
+        fieldName.classList.add('hidden');
+        fieldGrade.classList.add('hidden');
+        authTitle.innerText = "Welcome Back!";
+        authSub.innerText = "Please enter your credentials to view tuition batches and details.";
+        btnSubmit.innerText = "Sign In to Continue";
+        footerText.innerText = "Don't have an account yet?";
+        footerBtn.innerText = "Sign up now";
+      }
     }
 
-    // नया साइनअप
-    function handleSignup() {
-      const email = document.getElementById("email").value.trim();
-      const pass = document.getElementById("password").value.trim();
-      authError.innerText = "";
-
-      if (!email || !pass) {
-        authError.innerText = "कृपया ईमेल और पासवर्ड दोनों भरें।";
-        return;
-      }
-      if (pass.length < 4) {
-        authError.innerText = "पासवर्ड कम से कम 4 अक्षर का होना चाहिए।";
-        return;
-      }
-
-      // यूज़र डेटा स्टोर करें
-      let users = JSON.parse(localStorage.getItem("tuition_users") || "{}");
-      if (users[email]) {
-        authError.innerText = "यह ईमेल पहले से रजिस्टर्ड है! लॉगिन करें।";
-        return;
-      }
-
-      users[email] = pass;
-      localStorage.setItem("tuition_users", JSON.stringify(users));
-      localStorage.setItem("active_tuition_user", email);
-      alert("अकाउंट बन गया!");
-      showWebsite(email);
+    function toggleAuthMode() {
+      switchAuthTab(currentMode === 'login' ? 'signup' : 'login');
     }
 
-    // लॉगिन
-    function handleLogin() {
-      const email = document.getElementById("email").value.trim();
-      const pass = document.getElementById("password").value.trim();
-      authError.innerText = "";
-
-      if (!email || !pass) {
-        authError.innerText = "कृपया ईमेल और पासवर्ड दोनों भरें।";
-        return;
+    function togglePasswordVisibility() {
+      const passInput = document.getElementById('auth-password');
+      const icon = document.getElementById('password-toggle-icon');
+      if (passInput.type === 'password') {
+        passInput.type = 'text';
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        passInput.type = 'password';
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
       }
-
-      let users = JSON.parse(localStorage.getItem("tuition_users") || "{}");
-      if (!users[email] || users[email] !== pass) {
-        authError.innerText = "गलत ईमेल या पासवर्ड!";
-        return;
-      }
-
-      localStorage.setItem("active_tuition_user", email);
-      showWebsite(email);
     }
 
-    // लॉगआउट
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      clearAlert();
+
+      const email = document.getElementById('auth-email').value.trim().toLowerCase();
+      const password = document.getElementById('auth-password').value.trim();
+      const name = document.getElementById('auth-name').value.trim();
+      const grade = document.getElementById('auth-grade').value;
+
+      if (!email || !password) {
+        displayAlert("Please enter all required fields.", "error");
+        return;
+      }
+
+      let accounts = JSON.parse(localStorage.getItem('bm_users') || "{}");
+
+      if (currentMode === 'signup') {
+        if (!name) {
+          displayAlert("Please enter your name.", "error");
+          return;
+        }
+        if (password.length < 5) {
+          displayAlert("Password should be at least 5 characters.", "error");
+          return;
+        }
+        if (accounts[email]) {
+          displayAlert("This email is already registered. Please sign in.", "error");
+          return;
+        }
+
+        accounts[email] = { name, password, grade };
+        localStorage.setItem('bm_users', JSON.stringify(accounts));
+        localStorage.setItem('bm_active_session', email);
+        displayAlert("Account created successfully!", "success");
+        setTimeout(() => showApp(email), 500);
+      } else {
+        if (!accounts[email] || accounts[email].password !== password) {
+          displayAlert("Invalid email or password. Please try again.", "error");
+          return;
+        }
+        localStorage.setItem('bm_active_session', email);
+        showApp(email);
+      }
+    }
+
+    function displayAlert(message, type) {
+      const alertBox = document.getElementById('auth-alert');
+      alertBox.classList.remove('hidden', 'bg-rose-500/10', 'text-rose-400', 'border', 'border-rose-500/20', 'bg-emerald-500/10', 'text-emerald-400', 'border-emerald-500/20');
+      
+      if (type === 'error') {
+        alertBox.className = "text-xs py-2.5 px-3.5 rounded-xl mb-4 font-medium bg-rose-500/10 text-rose-400 border border-rose-500/20 block";
+      } else {
+        alertBox.className = "text-xs py-2.5 px-3.5 rounded-xl mb-4 font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 block";
+      }
+      alertBox.innerText = message;
+    }
+
+    function clearAlert() {
+      const alertBox = document.getElementById('auth-alert');
+      alertBox.className = "hidden text-xs py-2.5 px-3.5 rounded-xl mb-4 font-medium";
+      alertBox.innerText = "";
+    }
+
+    function showApp(email) {
+      document.getElementById('auth-screen').classList.add('hidden');
+      document.getElementById('website-screen').classList.remove('hidden');
+      document.getElementById('nav-user-email').innerText = email;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     function handleLogout() {
-      localStorage.removeItem("active_tuition_user");
-      websiteScreen.classList.add("hidden");
-      authScreen.classList.remove("hidden");
-      document.getElementById("email").value = "";
-      document.getElementById("password").value = "";
+      localStorage.removeItem('bm_active_session');
+      document.getElementById('website-screen').classList.add('hidden');
+      document.getElementById('auth-screen').classList.remove('hidden');
+      document.getElementById('auth-email').value = '';
+      document.getElementById('auth-password').value = '';
+      clearAlert();
     }
   </script>
 </body>
