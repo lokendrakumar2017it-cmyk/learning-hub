@@ -43,7 +43,7 @@
   <!-- 1. DYNAMIC SPLIT-SCREEN AUTH PORTAL        -->
   <!-- ========================================== -->
   <section id="auth-screen" class="min-h-screen flex items-center justify-center p-4 sm:p-8 bg-slate-950">
-    <div class="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900 min-h-[640px]">
+    <div class="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900 min-h-[660px]">
       
       <!-- LEFT PROMO PANEL -->
       <div class="lg:col-span-5 animated-mesh p-8 sm:p-10 flex flex-col justify-between text-white relative overflow-hidden">
@@ -66,7 +66,7 @@
             Nurturing Young Minds With Personal Care.
           </h1>
           <p class="mt-4 text-sm text-indigo-100/90 leading-relaxed font-normal">
-            Specialized home tuition for Nursery to Grade 5 at Jalalpur, Khair Road, Aligarh. Overcoming fear of Math & English with gentle patience.
+            Specialized home tuition for Nursery to Grade 5 at Jalalpur, Khair Road, Aligarh. Login via Phone or Email with WhatsApp OTP verification.
           </p>
         </div>
 
@@ -76,8 +76,8 @@
               ✓
             </div>
             <div>
-              <p class="text-xs font-bold">Strictly Small Batches</p>
-              <p class="text-[11px] text-white/80">Only 5-6 children per batch for personal attention</p>
+              <p class="text-xs font-bold">Fast WhatsApp Verification</p>
+              <p class="text-[11px] text-white/80">Login easily with Email or 10-digit Phone Number</p>
             </div>
           </div>
         </div>
@@ -87,7 +87,8 @@
       <div class="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-center bg-slate-900 text-white">
         <div class="max-w-md mx-auto w-full">
           
-          <div class="flex p-1 bg-slate-800/80 rounded-2xl border border-slate-700/60 mb-8">
+          <!-- Mode Tabs (Login vs Register) -->
+          <div class="flex p-1 bg-slate-800/80 rounded-2xl border border-slate-700/60 mb-6">
             <button id="tab-login" onclick="switchAuthTab('login')" class="flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition-all duration-200 bg-indigo-600 text-white shadow-md">
               Sign In
             </button>
@@ -96,15 +97,19 @@
             </button>
           </div>
 
-          <div class="mb-6">
+          <div class="mb-5">
             <h3 id="auth-title" class="text-2xl font-bold text-white tracking-tight">Welcome to RiSe & Shine!</h3>
-            <p id="auth-sub" class="text-xs text-slate-400 mt-1">Please enter your credentials to open the Parent Dashboard.</p>
+            <p id="auth-sub" class="text-xs text-slate-400 mt-1">Sign in using your Email or 10-digit Phone number.</p>
           </div>
 
           <div id="auth-alert" class="hidden text-xs py-2.5 px-3.5 rounded-xl mb-4 font-medium"></div>
 
-          <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
+          <!-- ========================================== -->
+          <!-- FORM A: LOGIN & SIGNUP                     -->
+          <!-- ========================================== -->
+          <form id="main-auth-form" onsubmit="handleAuthSubmit(event)" class="space-y-4">
             
+            <!-- Parent Name (Only on Signup) -->
             <div id="field-name" class="hidden">
               <label class="block text-xs font-semibold text-slate-300 mb-1.5">Parent / Guardian Name</label>
               <div class="relative">
@@ -113,25 +118,42 @@
               </div>
             </div>
 
+            <!-- Email or Phone Number Input -->
             <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Email Address</label>
+              <label id="label-identifier" class="block text-xs font-semibold text-slate-300 mb-1.5">Phone Number or Email Address</label>
               <div class="relative">
-                <i class="fas fa-envelope absolute left-4 top-3.5 text-slate-500 text-xs"></i>
-                <input type="email" id="auth-email" required placeholder="parent@gmail.com" class="w-full bg-slate-800/60 border border-slate-700/80 rounded-xl py-3 pl-11 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" />
+                <i id="icon-identifier" class="fas fa-address-card absolute left-4 top-3.5 text-slate-500 text-xs"></i>
+                <input type="text" id="auth-identifier" required placeholder="9876543210 or parent@gmail.com" class="w-full bg-slate-800/60 border border-slate-700/80 rounded-xl py-3 pl-11 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" />
               </div>
             </div>
 
+            <!-- Secondary Phone Field (Only shown during Sign up if user entered email above) -->
+            <div id="field-phone-extra" class="hidden">
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">WhatsApp Number (for OTP & Updates)</label>
+              <div class="relative">
+                <i class="fab fa-whatsapp absolute left-4 top-3.5 text-emerald-400 text-sm"></i>
+                <input type="tel" id="auth-phone-extra" placeholder="10-digit WhatsApp number" pattern="[0-9]{10}" class="w-full bg-slate-800/60 border border-slate-700/80 rounded-xl py-3 pl-11 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" />
+              </div>
+            </div>
+
+            <!-- Password with Toggle -->
             <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Password</label>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="text-xs font-semibold text-slate-300">Password</label>
+                <button type="button" id="btn-forgot-pass" onclick="openForgotModal()" class="text-[11px] text-amber-400 hover:text-amber-300 font-semibold">
+                  Forgot Password?
+                </button>
+              </div>
               <div class="relative">
                 <i class="fas fa-lock absolute left-4 top-3.5 text-slate-500 text-xs"></i>
                 <input type="password" id="auth-password" required placeholder="••••••••" class="w-full bg-slate-800/60 border border-slate-700/80 rounded-xl py-3 pl-11 pr-11 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" />
-                <button type="button" onclick="togglePasswordVisibility()" class="absolute right-4 top-3 text-slate-500 hover:text-slate-300 text-xs">
+                <button type="button" onclick="togglePasswordVisibility('auth-password', 'password-toggle-icon')" class="absolute right-4 top-3 text-slate-500 hover:text-slate-300 text-xs">
                   <i id="password-toggle-icon" class="fas fa-eye"></i>
                 </button>
               </div>
             </div>
 
+            <!-- Child Grade (Only on Signup) -->
             <div id="field-grade" class="hidden">
               <label class="block text-xs font-semibold text-slate-300 mb-1.5">Child's Current Grade</label>
               <select id="auth-grade" class="w-full bg-slate-800/60 border border-slate-700/80 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
@@ -149,7 +171,62 @@
             </button>
           </form>
 
-          <div class="mt-6 text-center text-xs text-slate-400">
+          <!-- ========================================== -->
+          <!-- FORM B: FORGOT PASSWORD / WHATSAPP OTP     -->
+          <!-- ========================================== -->
+          <div id="forgot-modal" class="hidden space-y-4">
+            <div class="p-3.5 bg-indigo-950/60 border border-indigo-700/60 rounded-2xl text-xs text-indigo-200">
+              <p class="font-bold text-amber-300 flex items-center space-x-1.5 mb-1">
+                <i class="fab fa-whatsapp text-emerald-400 text-sm"></i>
+                <span>WhatsApp OTP Password Reset</span>
+              </p>
+              Apna registered 10-digit Phone Number daalein. OTP seedha WhatsApp par bheja jayega.
+            </div>
+
+            <!-- Step 1: Input Phone & Send OTP -->
+            <div id="otp-step-1" class="space-y-3">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">10-Digit Phone / WhatsApp Number</label>
+                <input type="tel" id="reset-phone" placeholder="e.g. 9876543210" pattern="[0-9]{10}" class="w-full bg-slate-800/70 border border-slate-700 rounded-xl py-3 px-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+              </div>
+              <button type="button" onclick="sendWhatsAppOTP()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs sm:text-sm flex items-center justify-center space-x-2 shadow-lg shadow-emerald-600/30 transition">
+                <i class="fab fa-whatsapp text-base"></i>
+                <span>Send OTP via WhatsApp</span>
+              </button>
+            </div>
+
+            <!-- Step 2: Verify OTP & New Password -->
+            <div id="otp-step-2" class="hidden space-y-3">
+              <div class="bg-emerald-950/60 border border-emerald-500/40 p-3 rounded-xl text-[11px] text-emerald-200">
+                ✅ WhatsApp open ho chuka hai. Jo 4-digit code mila hai, use neeche daalein.
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Enter 4-Digit OTP Code</label>
+                <input type="text" id="reset-otp-input" maxlength="4" placeholder="••••" class="w-full tracking-widest text-center text-lg font-black bg-slate-800/80 border border-slate-700 rounded-xl py-2.5 text-amber-300 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Set New Password</label>
+                <div class="relative">
+                  <input type="password" id="reset-new-pass" placeholder="At least 5 characters" class="w-full bg-slate-800/80 border border-slate-700 rounded-xl py-3 pl-4 pr-11 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                  <button type="button" onclick="togglePasswordVisibility('reset-new-pass', 'reset-toggle-icon')" class="absolute right-4 top-3 text-slate-500 hover:text-slate-300 text-xs">
+                    <i id="reset-toggle-icon" class="fas fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+
+              <button type="button" onclick="verifyOTPAndResetPassword()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-xs sm:text-sm shadow-md transition">
+                Verify OTP & Save Password
+              </button>
+            </div>
+
+            <button type="button" onclick="closeForgotModal()" class="w-full text-center text-xs text-slate-400 hover:text-white mt-2">
+              ← Back to Sign In
+            </button>
+          </div>
+
+          <div id="footer-switch" class="mt-6 text-center text-xs text-slate-400">
             <span id="footer-text">Don't have an account yet?</span>
             <button onclick="toggleAuthMode()" id="footer-btn" class="font-bold text-amber-400 hover:text-amber-300 ml-1">
               Sign up now
@@ -266,7 +343,7 @@
             <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Signed in as</p>
             <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
               <p id="menu-user-name" class="text-xs font-bold text-slate-800">Parent Account</p>
-              <p id="menu-user-email" class="text-[11px] text-slate-500 truncate">parent@gmail.com</p>
+              <p id="menu-user-identifier" class="text-[11px] text-slate-500 truncate">User Identifier</p>
             </div>
           </div>
 
@@ -326,9 +403,7 @@
         </div>
       </div>
 
-      <!-- ==================================================== -->
-      <!-- REDESIGNED DESIGNING BOXES (HINDI + ENGLISH)         -->
-      <!-- ==================================================== -->
+      <!-- DESIGNING BOXES (HINDI + ENGLISH) -->
       <div class="mb-10">
         <div class="flex items-center justify-between mb-5">
           <div>
@@ -679,9 +754,13 @@
 
   </div>
 
-  <!-- 3. JAVASCRIPT LOGIC -->
+  <!-- ========================================== -->
+  <!-- 3. JAVASCRIPT AUTH, WHATSAPP OTP & ENGINE  -->
+  <!-- ========================================== -->
   <script>
     let currentMode = 'login';
+    let currentGeneratedOTP = null;
+    let targetResetUserKey = null;
 
     window.addEventListener('DOMContentLoaded', () => {
       const activeUser = localStorage.getItem('rns_active_session');
@@ -718,10 +797,12 @@
 
     function switchAuthTab(mode) {
       currentMode = mode;
+      closeForgotModal();
       const tabLogin = document.getElementById('tab-login');
       const tabSignup = document.getElementById('tab-signup');
       const fieldName = document.getElementById('field-name');
       const fieldGrade = document.getElementById('field-grade');
+      const fieldPhoneExtra = document.getElementById('field-phone-extra');
       const authTitle = document.getElementById('auth-title');
       const authSub = document.getElementById('auth-sub');
       const btnSubmit = document.getElementById('btn-submit');
@@ -734,8 +815,9 @@
         tabLogin.className = "flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition-all duration-200 text-slate-400 hover:text-white";
         fieldName.classList.remove('hidden');
         fieldGrade.classList.remove('hidden');
+        fieldPhoneExtra.classList.remove('hidden');
         authTitle.innerText = "Register at RiSe & Shine";
-        authSub.innerText = "Register to access the Parent Dashboard and book free trial classes.";
+        authSub.innerText = "Create an account using Phone number or Email with WhatsApp support.";
         btnSubmit.innerText = "Register & Continue";
         footerText.innerText = "Already registered?";
         footerBtn.innerText = "Sign in here";
@@ -744,8 +826,9 @@
         tabSignup.className = "flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition-all duration-200 text-slate-400 hover:text-white";
         fieldName.classList.add('hidden');
         fieldGrade.classList.add('hidden');
+        fieldPhoneExtra.classList.add('hidden');
         authTitle.innerText = "Welcome to RiSe & Shine!";
-        authSub.innerText = "Please enter your credentials to open the Parent Dashboard.";
+        authSub.innerText = "Sign in using your Email or 10-digit Phone number.";
         btnSubmit.innerText = "Sign In to Continue";
         footerText.innerText = "Don't have an account yet?";
         footerBtn.innerText = "Sign up now";
@@ -756,9 +839,9 @@
       switchAuthTab(currentMode === 'login' ? 'signup' : 'login');
     }
 
-    function togglePasswordVisibility() {
-      const passInput = document.getElementById('auth-password');
-      const icon = document.getElementById('password-toggle-icon');
+    function togglePasswordVisibility(fieldId, iconId) {
+      const passInput = document.getElementById(fieldId);
+      const icon = document.getElementById(iconId);
       if (passInput.type === 'password') {
         passInput.type = 'text';
         icon.classList.replace('fa-eye', 'fa-eye-slash');
@@ -768,17 +851,28 @@
       }
     }
 
+    // Normalized key generator (Phone or Email)
+    function cleanIdentifier(id) {
+      const trimmed = id.trim().toLowerCase();
+      // If 10-digit number
+      const digitsOnly = trimmed.replace(/[^0-9]/g, '');
+      if (digitsOnly.length === 10) return digitsOnly;
+      return trimmed;
+    }
+
     function handleAuthSubmit(e) {
       e.preventDefault();
       clearAlert();
 
-      const email = document.getElementById('auth-email').value.trim().toLowerCase();
+      const rawIdentifier = document.getElementById('auth-identifier').value.trim();
+      const identifier = cleanIdentifier(rawIdentifier);
       const password = document.getElementById('auth-password').value.trim();
       const name = document.getElementById('auth-name').value.trim();
       const grade = document.getElementById('auth-grade').value;
+      const extraPhone = document.getElementById('auth-phone-extra').value.trim();
 
-      if (!email || !password) {
-        displayAlert("Please enter all required fields.", "error");
+      if (!identifier || !password) {
+        displayAlert("Please enter Phone/Email and Password.", "error");
         return;
       }
 
@@ -793,26 +887,134 @@
           displayAlert("Password should be at least 5 characters.", "error");
           return;
         }
-        if (accounts[email]) {
-          displayAlert("This email is already registered. Please sign in.", "error");
+        if (accounts[identifier]) {
+          displayAlert("This Phone/Email is already registered. Please sign in.", "error");
           return;
         }
 
-        accounts[email] = { name, password, grade };
+        const linkedPhone = /^\d{10}$/.test(identifier) ? identifier : (extraPhone || identifier);
+
+        accounts[identifier] = { 
+          name, 
+          password, 
+          grade, 
+          phone: linkedPhone,
+          identifier: rawIdentifier
+        };
+
+        // Also index by phone if email was used and phone provided
+        if (linkedPhone && linkedPhone !== identifier) {
+          accounts[linkedPhone] = accounts[identifier];
+        }
+
         localStorage.setItem('rns_users', JSON.stringify(accounts));
-        localStorage.setItem('rns_active_session', email);
+        localStorage.setItem('rns_active_session', identifier);
         displayAlert("Account created successfully!", "success");
-        setTimeout(() => showApp(email), 500);
+        setTimeout(() => showApp(identifier), 500);
       } else {
-        if (!accounts[email] || accounts[email].password !== password) {
-          displayAlert("Invalid email or password. Please try again.", "error");
+        // Sign in check
+        const user = accounts[identifier];
+        if (!user || user.password !== password) {
+          displayAlert("Invalid Phone/Email or Password. Please try again.", "error");
           return;
         }
-        localStorage.setItem('rns_active_session', email);
-        showApp(email);
+        localStorage.setItem('rns_active_session', identifier);
+        showApp(identifier);
       }
     }
 
+    // ==========================================
+    // FORGOT PASSWORD / WHATSAPP OTP ENGINE
+    // ==========================================
+    function openForgotModal() {
+      document.getElementById('main-auth-form').classList.add('hidden');
+      document.getElementById('forgot-modal').classList.remove('hidden');
+      document.getElementById('footer-switch').classList.add('hidden');
+      document.getElementById('otp-step-1').classList.remove('hidden');
+      document.getElementById('otp-step-2').classList.add('hidden');
+      clearAlert();
+    }
+
+    function closeForgotModal() {
+      document.getElementById('main-auth-form').classList.remove('hidden');
+      document.getElementById('forgot-modal').classList.add('hidden');
+      document.getElementById('footer-switch').classList.remove('hidden');
+      clearAlert();
+    }
+
+    function sendWhatsAppOTP() {
+      clearAlert();
+      const rawPhone = document.getElementById('reset-phone').value.trim();
+      const phoneDigits = rawPhone.replace(/[^0-9]/g, '');
+
+      if (phoneDigits.length !== 10) {
+        displayAlert("Please enter a valid 10-digit WhatsApp phone number.", "error");
+        return;
+      }
+
+      let accounts = JSON.parse(localStorage.getItem('rns_users') || "{}");
+      
+      // Find if user exists
+      let matchedKey = null;
+      for (let key in accounts) {
+        if (key === phoneDigits || (accounts[key].phone && accounts[key].phone === phoneDigits)) {
+          matchedKey = key;
+          break;
+        }
+      }
+
+      if (!matchedKey) {
+        displayAlert("This phone number is not registered yet. Please create an account.", "error");
+        return;
+      }
+
+      targetResetUserKey = matchedKey;
+
+      // Generate 4-digit random OTP
+      currentGeneratedOTP = Math.floor(1000 + Math.random() * 9000).toString();
+
+      // Open WhatsApp with pre-filled OTP message to Teacher's Number
+      const teacherPhone = "917088244393";
+      const otpMessage = `Hello Teacher,%0A%0AMy RiSe & Shine Account verification OTP for password reset is: *${currentGeneratedOTP}*%0A(Phone: ${phoneDigits})%0A%0APlease verify my account.`;
+
+      window.open(`https://wa.me/${teacherPhone}?text=${otpMessage}`, '_blank');
+
+      // Move to step 2
+      document.getElementById('otp-step-1').classList.add('hidden');
+      document.getElementById('otp-step-2').classList.remove('hidden');
+      displayAlert(`WhatsApp verification opened! Enter the 4-digit code (${currentGeneratedOTP}) below.`, "success");
+    }
+
+    function verifyOTPAndResetPassword() {
+      clearAlert();
+      const enteredOTP = document.getElementById('reset-otp-input').value.trim();
+      const newPassword = document.getElementById('reset-new-pass').value.trim();
+
+      if (!enteredOTP || enteredOTP !== currentGeneratedOTP) {
+        displayAlert("Invalid OTP Code! Please enter the correct 4-digit code sent on WhatsApp.", "error");
+        return;
+      }
+
+      if (newPassword.length < 5) {
+        displayAlert("New password must be at least 5 characters long.", "error");
+        return;
+      }
+
+      let accounts = JSON.parse(localStorage.getItem('rns_users') || "{}");
+      if (accounts[targetResetUserKey]) {
+        accounts[targetResetUserKey].password = newPassword;
+        localStorage.setItem('rns_users', JSON.stringify(accounts));
+        displayAlert("Password reset successfully! You can now sign in.", "success");
+        setTimeout(() => {
+          closeForgotModal();
+          switchAuthTab('login');
+        }, 1200);
+      } else {
+        displayAlert("Error finding account. Please try again.", "error");
+      }
+    }
+
+    // Demo booking form submission
     function handleDemoBooking(e) {
       e.preventDefault();
       const parentName = document.getElementById('demo-parent').value.trim();
@@ -827,8 +1029,7 @@
 
     function displayAlert(message, type) {
       const alertBox = document.getElementById('auth-alert');
-      alertBox.classList.remove('hidden', 'bg-rose-500/10', 'text-rose-400', 'border', 'border-rose-500/20', 'bg-emerald-500/10', 'text-emerald-400', 'border-emerald-500/20');
-      
+      alertBox.classList.remove('hidden');
       if (type === 'error') {
         alertBox.className = "text-xs py-2.5 px-3.5 rounded-xl mb-4 font-medium bg-rose-500/10 text-rose-400 border border-rose-500/20 block";
       } else {
@@ -843,15 +1044,15 @@
       alertBox.innerText = "";
     }
 
-    function showApp(email) {
+    function showApp(identifier) {
       document.getElementById('auth-screen').classList.add('hidden');
       document.getElementById('website-screen').classList.remove('hidden');
 
       const accounts = JSON.parse(localStorage.getItem('rns_users') || "{}");
-      const user = accounts[email];
+      const user = accounts[identifier];
       
       document.getElementById('menu-user-name').innerText = user ? user.name : "Parent";
-      document.getElementById('menu-user-email').innerText = email;
+      document.getElementById('menu-user-identifier').innerText = user ? (user.identifier || identifier) : identifier;
 
       showSection('dashboard');
     }
@@ -860,7 +1061,7 @@
       localStorage.removeItem('rns_active_session');
       document.getElementById('website-screen').classList.add('hidden');
       document.getElementById('auth-screen').classList.remove('hidden');
-      document.getElementById('auth-email').value = '';
+      document.getElementById('auth-identifier').value = '';
       document.getElementById('auth-password').value = '';
       clearAlert();
     }
