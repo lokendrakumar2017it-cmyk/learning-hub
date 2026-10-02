@@ -173,9 +173,7 @@
       <button onclick="showSection('dashboard')" class="underline text-white hover:text-amber-300 ml-1">Open Parent Dashboard →</button>
     </div>
 
-    <!-- ========================================== -->
-    <!-- SHANDAR BLUE HEADER BOX (NO OVERLAP)       -->
-    <!-- ========================================== -->
+    <!-- SHANDAR ROYAL BLUE HEADER BOX -->
     <header class="bg-gradient-to-br from-[#0c1e3d] via-[#102a5c] to-[#1e3a8a] text-white shadow-xl border-b border-indigo-900/60">
       <div class="max-w-6xl mx-auto px-4 py-4 sm:py-6">
         
@@ -311,6 +309,7 @@
     <!-- ==================================================== -->
     <main id="dashboard-view" class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
       
+      <!-- Welcome Card -->
       <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-indigo-900 mb-8 relative overflow-hidden">
         <div class="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
@@ -327,96 +326,169 @@
         </div>
       </div>
 
-      <!-- DASHBOARD COMMITMENT CARDS -->
+      <!-- ==================================================== -->
+      <!-- REDESIGNED DESIGNING BOXES (HINDI + ENGLISH)         -->
+      <!-- ==================================================== -->
       <div class="mb-10">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-black text-slate-900 flex items-center space-x-2">
-            <i class="fas fa-shield-halved text-indigo-600"></i>
-            <span>Student Care & Learning Commitments</span>
-          </h3>
-          <span class="text-xs text-slate-400 font-medium">Session 2026-27</span>
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <h3 class="text-lg sm:text-xl font-black text-slate-900 flex items-center space-x-2">
+              <span class="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-sm shadow-sm">
+                <i class="fas fa-shield-halved"></i>
+              </span>
+              <span>Student Care & Learning Commitments</span>
+            </h3>
+            <p class="text-xs text-slate-500 font-medium ml-10">हमारी मुख्य विशेषताएं और बच्चों के लिए गारंटी</p>
+          </div>
+          <span class="hidden sm:inline-block bg-slate-200 text-slate-700 text-xs px-3 py-1 rounded-full font-bold">
+            Session 2026-27
+          </span>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
           
-          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
-            <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center text-xl mb-4">
-              <i class="fas fa-mobile-screen-button"></i>
+          <!-- BOX 1: No Mobile Addiction (Rose Theme) -->
+          <div class="bg-gradient-to-br from-white via-rose-50/40 to-rose-100/50 rounded-3xl p-6 border-2 border-rose-200/90 shadow-sm hover:shadow-md transition relative overflow-hidden">
+            <div class="flex items-start justify-between">
+              <div class="w-12 h-12 rounded-2xl bg-rose-500 text-white flex items-center justify-center text-xl shadow-md shadow-rose-500/20">
+                <i class="fas fa-mobile-screen-button"></i>
+              </div>
+              <span class="bg-rose-500 text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
+                100% Screen-Free
+              </span>
             </div>
-            <div class="flex items-center space-x-2 mb-1">
-              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-              <h4 class="font-bold text-slate-900 text-sm">No Mobile Addiction</h4>
+
+            <div class="mt-4">
+              <h4 class="text-base font-extrabold text-slate-900 flex items-center space-x-1.5">
+                <span>No Mobile Addiction</span>
+                <span class="text-xs font-bold text-rose-600">• मोबाइल की लत से मुक्ति</span>
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                Children are kept completely engaged away from mobile screens, reels, and video games for 2 productive hours daily.
+              </p>
+              <div class="bg-white/80 border border-rose-200 rounded-xl p-2.5 mt-3 text-xs font-medium text-slate-700">
+                🇮🇳 <strong>हिंदी:</strong> बच्चे 2 घंटे फोन और गेम्स से पूरी तरह दूर रहकर सिर्फ पढ़ाई, लिखने और रचनात्मक सीखने पर ध्यान लगाते हैं।
+              </div>
             </div>
-            <p class="text-xs text-slate-600 leading-relaxed mt-2">
-              Children are kept completely engaged away from mobile screens, reels, and video games for 2 productive hours daily.
-            </p>
-            <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-rose-600 flex items-center space-x-1">
-              <i class="fas fa-check-circle"></i>
-              <span>100% Screen-Free Study</span>
+
+            <div class="mt-4 pt-3 border-t border-rose-200/60 flex items-center justify-between text-xs">
+              <span class="font-bold text-rose-700 flex items-center space-x-1.5">
+                <i class="fas fa-check-circle"></i>
+                <span>Healthy Focus & Attention</span>
+              </span>
+              <span class="text-[11px] text-slate-500 font-semibold">2 Hours Daily</span>
             </div>
           </div>
 
-          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
-            <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center text-xl mb-4">
-              <i class="fas fa-book-open"></i>
+          <!-- BOX 2: Zero Homework Stress (Amber Theme) -->
+          <div class="bg-gradient-to-br from-white via-amber-50/40 to-amber-100/50 rounded-3xl p-6 border-2 border-amber-200/90 shadow-sm hover:shadow-md transition relative overflow-hidden">
+            <div class="flex items-start justify-between">
+              <div class="w-12 h-12 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center text-xl shadow-md shadow-amber-500/20">
+                <i class="fas fa-book-open"></i>
+              </div>
+              <span class="bg-amber-500 text-slate-950 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
+                Daily Diary Check
+              </span>
             </div>
-            <div class="flex items-center space-x-2 mb-1">
-              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-              <h4 class="font-bold text-slate-900 text-sm">Zero Homework Stress</h4>
+
+            <div class="mt-4">
+              <h4 class="text-base font-extrabold text-slate-900 flex items-center space-x-1.5">
+                <span>Zero Homework Stress</span>
+                <span class="text-xs font-bold text-amber-700">• होमवर्क की नो-टेंशन</span>
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                School diaries and homework are completed on the spot with thorough revision so parents don't have to struggle at night.
+              </p>
+              <div class="bg-white/80 border border-amber-200 rounded-xl p-2.5 mt-3 text-xs font-medium text-slate-700">
+                🇮🇳 <strong>हिंदी:</strong> स्कूल डायरी का सारा होमवर्क यहीं पूरा कराया जाता है, ताकि शाम को पेरेंट्स को कोई परेशानी न हो।
+              </div>
             </div>
-            <p class="text-xs text-slate-600 leading-relaxed mt-2">
-              School diaries and homework are completed on the spot with thorough revision so parents don't have to struggle at night.
-            </p>
-            <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-amber-600 flex items-center space-x-1">
-              <i class="fas fa-check-circle"></i>
-              <span>Daily Diary Checks</span>
+
+            <div class="mt-4 pt-3 border-t border-amber-200/60 flex items-center justify-between text-xs">
+              <span class="font-bold text-amber-800 flex items-center space-x-1.5">
+                <i class="fas fa-check-circle"></i>
+                <span>Complete Concept Revision</span>
+              </span>
+              <span class="text-[11px] text-slate-500 font-semibold">100% On-Spot</span>
             </div>
           </div>
 
-          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
-            <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-xl mb-4">
-              <i class="fas fa-pen-fancy"></i>
+          <!-- BOX 3: 30-Day Handwriting Shift (Indigo Theme) -->
+          <div class="bg-gradient-to-br from-white via-indigo-50/40 to-indigo-100/50 rounded-3xl p-6 border-2 border-indigo-200/90 shadow-sm hover:shadow-md transition relative overflow-hidden">
+            <div class="flex items-start justify-between">
+              <div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-xl shadow-md shadow-indigo-600/20">
+                <i class="fas fa-pen-fancy"></i>
+              </div>
+              <span class="bg-indigo-600 text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
+                Calligraphy & Phonics
+              </span>
             </div>
-            <div class="flex items-center space-x-2 mb-1">
-              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-              <h4 class="font-bold text-slate-900 text-sm">30-Day Handwriting Shift</h4>
+
+            <div class="mt-4">
+              <h4 class="text-base font-extrabold text-slate-900 flex items-center space-x-1.5">
+                <span>30-Day Handwriting Shift</span>
+                <span class="text-xs font-bold text-indigo-700">• लिखावट व रीडिंग सुधार</span>
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                Structured writing drills and pencil grip correction ensure visible improvement in neatness within 30 days.
+              </p>
+              <div class="bg-white/80 border border-indigo-200 rounded-xl p-2.5 mt-3 text-xs font-medium text-slate-700">
+                🇮🇳 <strong>हिंदी:</strong> पेंसिल ग्रिप और डेली राइटिंग प्रैक्टिस से 30 दिनों में अंग्रेजी और हिंदी हैंडराइटिंग साफ और सुंदर बनती है।
+              </div>
             </div>
-            <p class="text-xs text-slate-600 leading-relaxed mt-2">
-              Structured writing drills and pencil grip correction ensure visible improvement in neatness within 30 days.
-            </p>
-            <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-indigo-600 flex items-center space-x-1">
-              <i class="fas fa-check-circle"></i>
-              <span>English & Hindi Calligraphy</span>
+
+            <div class="mt-4 pt-3 border-t border-indigo-200/60 flex items-center justify-between text-xs">
+              <span class="font-bold text-indigo-700 flex items-center space-x-1.5">
+                <i class="fas fa-check-circle"></i>
+                <span>English & Hindi Phonics</span>
+              </span>
+              <span class="text-[11px] text-slate-500 font-semibold">Visible Results</span>
             </div>
           </div>
 
-          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
-            <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center text-xl mb-4">
-              <i class="fas fa-house-chimney-user"></i>
+          <!-- BOX 4: Safe Home Environment (Emerald Theme) -->
+          <div class="bg-gradient-to-br from-white via-emerald-50/40 to-emerald-100/50 rounded-3xl p-6 border-2 border-emerald-200/90 shadow-sm hover:shadow-md transition relative overflow-hidden">
+            <div class="flex items-start justify-between">
+              <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-xl shadow-md shadow-emerald-600/20">
+                <i class="fas fa-house-chimney-user"></i>
+              </div>
+              <span class="bg-emerald-600 text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
+                Safe & Caring
+              </span>
             </div>
-            <div class="flex items-center space-x-2 mb-1">
-              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-              <h4 class="font-bold text-slate-900 text-sm">Safe Home Atmosphere</h4>
+
+            <div class="mt-4">
+              <h4 class="text-base font-extrabold text-slate-900 flex items-center space-x-1.5">
+                <span>Safe Home Atmosphere</span>
+                <span class="text-xs font-bold text-emerald-700">• सुरक्षित पारिवारिक माहौल</span>
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                A gentle, disciplined family setup in Mandir Wali Gali, Jalalpur. Girls and young kids learn without fear or intimidation.
+              </p>
+              <div class="bg-white/80 border border-emerald-200 rounded-xl p-2.5 mt-3 text-xs font-medium text-slate-700">
+                🇮🇳 <strong>हिंदी:</strong> घर जैसा शांत, अनुशासित और सुरक्षित वातावरण, जहाँ हर बच्चे पर प्यार और धैर्य से व्यक्तिगत ध्यान दिया जाता है।
+              </div>
             </div>
-            <p class="text-xs text-slate-600 leading-relaxed mt-2">
-              A gentle, disciplined family setup in Mandir Wali Gali, Jalalpur. Girls and young kids learn without fear or intimidation.
-            </p>
-            <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-emerald-600 flex items-center space-x-1">
-              <i class="fas fa-check-circle"></i>
-              <span>100% Secure & Caring</span>
+
+            <div class="mt-4 pt-3 border-t border-emerald-200/60 flex items-center justify-between text-xs">
+              <span class="font-bold text-emerald-800 flex items-center space-x-1.5">
+                <i class="fas fa-check-circle"></i>
+                <span>Max 5-6 Students/Batch</span>
+              </span>
+              <span class="text-[11px] text-slate-500 font-semibold">1-on-1 Focus</span>
             </div>
           </div>
 
         </div>
       </div>
 
-      <!-- Schedule Table -->
+      <!-- Schedule Table & Quick Help -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
-        <div class="lg:col-span-2 bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+        <div class="lg:col-span-2 bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
           <h3 class="font-bold text-slate-900 text-sm mb-4 flex items-center space-x-2">
             <i class="fas fa-clock text-amber-500"></i>
-            <span>Current Batch Timings (Mon - Sat)</span>
+            <span>Current Batch Timings (Mon - Sat) • बैच का समय</span>
           </h3>
 
           <div class="overflow-x-auto">
@@ -453,7 +525,7 @@
           </div>
         </div>
 
-        <div class="bg-indigo-50/70 rounded-2xl p-6 border border-indigo-100 flex flex-col justify-between">
+        <div class="bg-indigo-50/70 rounded-3xl p-6 border border-indigo-100 flex flex-col justify-between">
           <div>
             <span class="bg-indigo-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">Instant Support</span>
             <h4 class="font-black text-slate-900 text-base mt-2">Need to speak with Teacher?</h4>
