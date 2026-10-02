@@ -127,9 +127,9 @@
               </div>
             </div>
 
-            <!-- Secondary Phone Field (Only shown during Sign up if user entered email above) -->
+            <!-- Optional Phone Field on Register -->
             <div id="field-phone-extra" class="hidden">
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5">WhatsApp Number (for OTP & Updates)</label>
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Phone / WhatsApp Number (Required for OTP)</label>
               <div class="relative">
                 <i class="fab fa-whatsapp absolute left-4 top-3.5 text-emerald-400 text-sm"></i>
                 <input type="tel" id="auth-phone-extra" placeholder="10-digit WhatsApp number" pattern="[0-9]{10}" class="w-full bg-slate-800/60 border border-slate-700/80 rounded-xl py-3 pl-11 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" />
@@ -172,23 +172,30 @@
           </form>
 
           <!-- ========================================== -->
-          <!-- FORM B: FORGOT PASSWORD / WHATSAPP OTP     -->
+          <!-- FORM B: SMART FORGOT PASSWORD (EMAIL/PHONE)-->
           <!-- ========================================== -->
           <div id="forgot-modal" class="hidden space-y-4">
             <div class="p-3.5 bg-indigo-950/60 border border-indigo-700/60 rounded-2xl text-xs text-indigo-200">
               <p class="font-bold text-amber-300 flex items-center space-x-1.5 mb-1">
                 <i class="fab fa-whatsapp text-emerald-400 text-sm"></i>
-                <span>WhatsApp OTP Password Reset</span>
+                <span>Smart WhatsApp Password Reset</span>
               </p>
-              Apna registered 10-digit Phone Number daalein. OTP seedha WhatsApp par bheja jayega.
+              Apna registered <strong>Email ID</strong> ya <strong>Phone Number</strong> daalein. OTP verification code direct WhatsApp par milega.
             </div>
 
-            <!-- Step 1: Input Phone & Send OTP -->
+            <!-- Step 1: Input Identifier -->
             <div id="otp-step-1" class="space-y-3">
               <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1">10-Digit Phone / WhatsApp Number</label>
-                <input type="tel" id="reset-phone" placeholder="e.g. 9876543210" pattern="[0-9]{10}" class="w-full bg-slate-800/70 border border-slate-700 rounded-xl py-3 px-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Registered Email ID or 10-Digit Phone</label>
+                <input type="text" id="reset-identifier" placeholder="parent@gmail.com ya 9058112511" class="w-full bg-slate-800/70 border border-slate-700 rounded-xl py-3 px-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
               </div>
+              
+              <!-- Optional WhatsApp Phone agar pehle sirf email daala tha -->
+              <div id="box-optional-phone" class="hidden">
+                <label class="block text-xs font-semibold text-amber-300 mb-1">Enter your active WhatsApp Number (for OTP code)</label>
+                <input type="tel" id="reset-otp-target-phone" placeholder="10-digit WhatsApp number" pattern="[0-9]{10}" class="w-full bg-slate-800/90 border border-amber-500/60 rounded-xl py-2.5 px-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-400" />
+              </div>
+
               <button type="button" onclick="sendWhatsAppOTP()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs sm:text-sm flex items-center justify-center space-x-2 shadow-lg shadow-emerald-600/30 transition">
                 <i class="fab fa-whatsapp text-base"></i>
                 <span>Send OTP via WhatsApp</span>
@@ -198,7 +205,7 @@
             <!-- Step 2: Verify OTP & New Password -->
             <div id="otp-step-2" class="hidden space-y-3">
               <div class="bg-emerald-950/60 border border-emerald-500/40 p-3 rounded-xl text-[11px] text-emerald-200">
-                ✅ WhatsApp open ho chuka hai. Jo 4-digit code mila hai, use neeche daalein.
+                ✅ WhatsApp open ho gaya hai. Message me diya hua 4-digit OTP code yahan daalein.
               </div>
 
               <div>
@@ -755,7 +762,7 @@
   </div>
 
   <!-- ========================================== -->
-  <!-- 3. JAVASCRIPT AUTH, WHATSAPP OTP & ENGINE  -->
+  <!-- 3. JAVASCRIPT LOGIC                        -->
   <!-- ========================================== -->
   <script>
     let currentMode = 'login';
@@ -851,10 +858,9 @@
       }
     }
 
-    // Normalized key generator (Phone or Email)
-    function cleanIdentifier(id) {
-      const trimmed = id.trim().toLowerCase();
-      // If 10-digit number
+    function cleanKey(val) {
+      if (!val) return '';
+      const trimmed = val.trim().toLowerCase();
       const digitsOnly = trimmed.replace(/[^0-9]/g, '');
       if (digitsOnly.length === 10) return digitsOnly;
       return trimmed;
@@ -865,11 +871,11 @@
       clearAlert();
 
       const rawIdentifier = document.getElementById('auth-identifier').value.trim();
-      const identifier = cleanIdentifier(rawIdentifier);
+      const identifier = cleanKey(rawIdentifier);
       const password = document.getElementById('auth-password').value.trim();
       const name = document.getElementById('auth-name').value.trim();
       const grade = document.getElementById('auth-grade').value;
-      const extraPhone = document.getElementById('auth-phone-extra').value.trim();
+      const extraPhone = cleanKey(document.getElementById('auth-phone-extra').value.trim());
 
       if (!identifier || !password) {
         displayAlert("Please enter Phone/Email and Password.", "error");
@@ -892,19 +898,21 @@
           return;
         }
 
-        const linkedPhone = /^\d{10}$/.test(identifier) ? identifier : (extraPhone || identifier);
+        const linkedPhone = /^\d{10}$/.test(identifier) ? identifier : extraPhone;
 
-        accounts[identifier] = { 
+        const newUserData = { 
           name, 
           password, 
           grade, 
           phone: linkedPhone,
+          email: identifier.includes('@') ? identifier : '',
           identifier: rawIdentifier
         };
 
-        // Also index by phone if email was used and phone provided
+        accounts[identifier] = newUserData;
+        // Also map linked phone
         if (linkedPhone && linkedPhone !== identifier) {
-          accounts[linkedPhone] = accounts[identifier];
+          accounts[linkedPhone] = newUserData;
         }
 
         localStorage.setItem('rns_users', JSON.stringify(accounts));
@@ -912,7 +920,7 @@
         displayAlert("Account created successfully!", "success");
         setTimeout(() => showApp(identifier), 500);
       } else {
-        // Sign in check
+        // Sign in verification
         const user = accounts[identifier];
         if (!user || user.password !== password) {
           displayAlert("Invalid Phone/Email or Password. Please try again.", "error");
@@ -932,7 +940,14 @@
       document.getElementById('footer-switch').classList.add('hidden');
       document.getElementById('otp-step-1').classList.remove('hidden');
       document.getElementById('otp-step-2').classList.add('hidden');
+      document.getElementById('box-optional-phone').classList.add('hidden');
       clearAlert();
+
+      // Pre-fill if entered in login box
+      const curInput = document.getElementById('auth-identifier').value.trim();
+      if (curInput) {
+        document.getElementById('reset-identifier').value = curInput;
+      }
     }
 
     function closeForgotModal() {
@@ -944,28 +959,55 @@
 
     function sendWhatsAppOTP() {
       clearAlert();
-      const rawPhone = document.getElementById('reset-phone').value.trim();
-      const phoneDigits = rawPhone.replace(/[^0-9]/g, '');
+      const rawInput = document.getElementById('reset-identifier').value.trim();
+      const cleanedInput = cleanKey(rawInput);
 
-      if (phoneDigits.length !== 10) {
-        displayAlert("Please enter a valid 10-digit WhatsApp phone number.", "error");
+      if (!cleanedInput) {
+        displayAlert("Please enter your registered Email or Phone number.", "error");
         return;
       }
 
       let accounts = JSON.parse(localStorage.getItem('rns_users') || "{}");
       
-      // Find if user exists
+      // Smart search across keys, phone, and email fields
       let matchedKey = null;
-      for (let key in accounts) {
-        if (key === phoneDigits || (accounts[key].phone && accounts[key].phone === phoneDigits)) {
-          matchedKey = key;
+      let matchedUser = null;
+
+      for (let k in accounts) {
+        const u = accounts[k];
+        if (k === cleanedInput || (u.phone && cleanKey(u.phone) === cleanedInput) || (u.email && cleanKey(u.email) === cleanedInput)) {
+          matchedKey = k;
+          matchedUser = u;
           break;
         }
       }
 
-      if (!matchedKey) {
-        displayAlert("This phone number is not registered yet. Please create an account.", "error");
+      if (!matchedUser) {
+        displayAlert("No account found with this Email or Phone number. Please create an account.", "error");
         return;
+      }
+
+      // Check if user has a valid 10-digit phone linked
+      let destPhone = matchedUser.phone ? cleanKey(matchedUser.phone) : '';
+      if (!destPhone && /^\d{10}$/.test(cleanedInput)) {
+        destPhone = cleanedInput;
+      }
+
+      // If user registered with only Email and no phone exists, ask for WhatsApp phone
+      if (!destPhone || destPhone.length !== 10) {
+        const optPhoneBox = document.getElementById('box-optional-phone');
+        optPhoneBox.classList.remove('hidden');
+        const manualPhone = cleanKey(document.getElementById('reset-otp-target-phone').value.trim());
+        
+        if (!manualPhone || manualPhone.length !== 10) {
+          displayAlert("Account found! Please enter your 10-digit WhatsApp phone number below to receive OTP.", "error");
+          return;
+        }
+        destPhone = manualPhone;
+        // save phone back to user
+        matchedUser.phone = destPhone;
+        accounts[destPhone] = matchedUser;
+        localStorage.setItem('rns_users', JSON.stringify(accounts));
       }
 
       targetResetUserKey = matchedKey;
@@ -975,7 +1017,7 @@
 
       // Open WhatsApp with pre-filled OTP message to Teacher's Number
       const teacherPhone = "917088244393";
-      const otpMessage = `Hello Teacher,%0A%0AMy RiSe & Shine Account verification OTP for password reset is: *${currentGeneratedOTP}*%0A(Phone: ${phoneDigits})%0A%0APlease verify my account.`;
+      const otpMessage = `Hello Teacher,%0A%0AMy RiSe & Shine Account Password Reset OTP is: *${currentGeneratedOTP}*%0A(User: ${encodeURIComponent(rawInput)})%0A%0APlease verify my reset request.`;
 
       window.open(`https://wa.me/${teacherPhone}?text=${otpMessage}`, '_blank');
 
@@ -1003,6 +1045,10 @@
       let accounts = JSON.parse(localStorage.getItem('rns_users') || "{}");
       if (accounts[targetResetUserKey]) {
         accounts[targetResetUserKey].password = newPassword;
+        // If phone mapped separately, update it too
+        if (accounts[targetResetUserKey].phone && accounts[accounts[targetResetUserKey].phone]) {
+          accounts[accounts[targetResetUserKey].phone].password = newPassword;
+        }
         localStorage.setItem('rns_users', JSON.stringify(accounts));
         displayAlert("Password reset successfully! You can now sign in.", "success");
         setTimeout(() => {
